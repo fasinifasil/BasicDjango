@@ -1,0 +1,30 @@
+{% extends 'OutLine.html' %}
+{% block titile %}
+Create List Page
+{% endblock %}
+
+
+{% block block %}
+
+<h3>Create New List</h3>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        <tr>
+           <td><label>Movie Title :</label></td>
+            <td><input type="text" name="title"></td>
+        </tr>
+     <tr>
+         <td><label>Released Year :</label></td>
+         <td><input type="text" name="year"></td>
+     </tr>
+        <tr>
+            <td><label> Description :</label></td>
+            <td><input type="text" name="desc"></td></tr>
+   <tr>
+      <td> <input type="submit" value="Create"></td></tr>
+        </table>
+</form>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{% extends 'OutLine.html' %}
+{% load static %}
+{% block titile %}
+List Page
+{% endblock %}
+
+
+{% block block %}
+
+<h3>All Details</h3>
+<h2>Malayalam Movies</h2>
+<i>Check out the list of all latest Malayalam movies </i>
+{% for i in films %}
+
+<hr>
+<h4>Title       :  {{i.title|upper}} </h4>
+<b>Year         :</b>  {{i.year}}<br>
+<b>Description  :</b>  {{i.description | default:'no data'}}<br>
+<p>Images       :<img src ="{% static 'images/' %}{{i.Images}}" height="150px" width="150px"></p>
+{% if i.success %}
+<i>Movie was a success at that time......</i>
+{% else %}
+<i>Movie failed......</i>
+
+{% endif %}
+
+{% endfor %}
+{% endblock %}
+
