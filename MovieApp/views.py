@@ -1,38 +1,46 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+from MovieApp.forms import MovieForm
+from MovieApp.models import MovieDb
+
 
 # Create your views here.
 def ListFunction(request):
-    movieList = {'films': [
-        {
-            'title': 'maheshinte Prathikaaram',
-            'year': 2016,
-            'description': 'Mahesh, sets out to take revenge on the stranger as he feels insulted after the incident.',
-            'Images'    :   'img_1.png',
-            'success': True
-        },
-        {
-            'title': 'Kumbalangi Nights',
-            'year': 2019,
-            'description': ' a story of four brothers – incomplete, disoriented and broken men leading unfulfilling lives in a pitiful abode on an islet in Kumbalangi. ',
-            'Images': 'img_2.png',
-            'success': True
-        },
-        {
-            'title': 'Super Sharanya',
-            'year': 2022,
-            'description': 'Sharanya experiences her first love, makes new friends and enjoys her college days as she walks on the tricky path towards adulthood',
-            'Images': 'img_3.png',
-            'success': False
-        }
+    alldata = MovieDb.objects.all()
 
-    ]
-    }
-
+    movieList = {'key':alldata}
     return render(request,'Listpage.html',movieList)
-def EditFunction(request):
-    return render(request,'EditList.html')
+def EditFunction(request,pk):
+    actform_Edit = MovieDb.objects.get(id=pk)
+    movielist=MovieForm(instance=actform_Edit)
+    if request.method=='POST':
+        movieform = MovieForm(request.POST)
+        if movieform.is_valid():
+            movieform.save()
+            return redirect('list')
+
+    context={'key':movielist}
+    return render(request, 'Createpage.html', context)
+
+
+def DeleteFunction(request,pk):
+    actform =MovieDb.objects.get(id=pk)
+    actform.delete()
+
+    return redirect('list')
+    return render(request, 'EditList.html')
 def CreateFunction(request):
+    movieform=MovieForm()
+    context={'key':movieform}
+    # if request.method == 'POST':
+    #     title=request.POST.get('Movie_Title')
+    #     desc=request.POST.get('Description')
+    #     year=request.POST.get('ReleasedYear')
+    #     movie=MovieDb.objects.create(Movie_Title=title,ReleasedYear=year,Description=desc)
+    #     movie.save()
     if request.method == 'POST':
-        print(request.POST.get('title'))
-        print(request.POST.get('desc'))
-    return render(request,'Createpage.html')
+        movieform=MovieForm(request.POST)
+        if movieform.is_valid():
+            movieform.save()
+            return redirect('list')
+    return render(request,'Createpage.html',context)

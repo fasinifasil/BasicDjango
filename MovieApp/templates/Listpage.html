@@ -7,23 +7,31 @@ List Page
 
 {% block block %}
 
+
 <h3>All Details</h3>
 <h2>Malayalam Movies</h2>
 <i>Check out the list of all latest Malayalam movies </i>
-{% for i in films %}
+
 
 <hr>
-<h4>Title       :  {{i.title|upper}} </h4>
-<b>Year         :</b>  {{i.year}}<br>
-<b>Description  :</b>  {{i.description | default:'no data'}}<br>
-<p>Images       :<img src ="{% static 'images/' %}{{i.Images}}" height="150px" width="150px"></p>
-{% if i.success %}
-<i>Movie was a success at that time......</i>
-{% else %}
-<i>Movie failed......</i>
+<table border="1px" style="padding:40px">
+    <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Description</th>
+        <th>Edit/Delete</th>
 
-{% endif %}
+    </tr>
+    {% for i in key %}
+    <tr>
+        <td>{{i.Movie_Title|upper}}</td>
+        <td>{{i.ReleasedYear}}</td>
+        <td>{{i.Description | default:'no data'}}</td>
+        <td><a href="{% url 'edit' i.id %}">Edit</a>/<a href="{% url 'delete' i.id %}">Delete</a></td>
 
-{% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
 {% endblock %}
 
