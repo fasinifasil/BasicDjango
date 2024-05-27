@@ -12,14 +12,23 @@ def ListFunction(request):
     return render(request,'Listpage.html',movieList)
 def EditFunction(request,pk):
     actform_Edit = MovieDb.objects.get(id=pk)
-    movielist=MovieForm(instance=actform_Edit)
-    if request.method=='POST':
-        movieform = MovieForm(request.POST)
-        if movieform.is_valid():
-            movieform.save()
+    if request.POST:
+        # title=request.POST.get('Movie_Title')
+        # Desc=request.POST.get('Description')
+        # Year=request.POST.get('ReleasedYear')
+        # actform_Edit.Movie_Title=title
+        # actform_Edit.ReleasedYear=Year
+        # actform_Edit.Description=Desc
+        # actform_Edit.save()
+        # return redirect('list')
+        forms = MovieForm(request.POST,instance=actform_Edit)
+        if forms.is_valid():
+            actform_Edit.save()
             return redirect('list')
 
-    context={'key':movielist}
+    movie=MovieForm(instance=actform_Edit)
+
+    context={'key':movie}
     return render(request, 'Createpage.html', context)
 
 
