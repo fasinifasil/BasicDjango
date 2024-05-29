@@ -48,7 +48,7 @@ def CreateFunction(request):
     #     movie=MovieDb.objects.create(Movie_Title=title,ReleasedYear=year,Description=desc)
     #     movie.save()
     if request.method == 'POST':
-        movieform=MovieForm(request.POST)
+        movieform=MovieForm(request.POST,request.FILES)
         if movieform.is_valid():
             movieform.save()
             return redirect('list')

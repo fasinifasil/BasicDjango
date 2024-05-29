@@ -19,6 +19,7 @@ List Page
         <th>Title</th>
         <th>Year</th>
         <th>Description</th>
+        <th>Poster</th>
         <th>Edit/Delete</th>
 
     </tr>
@@ -27,6 +28,11 @@ List Page
         <td>{{i.Movie_Title|upper}}</td>
         <td>{{i.ReleasedYear}}</td>
         <td>{{i.Description | default:'no data'}}</td>
+    {% if i.MoviePic %}
+                <td><img src="{{ i.MoviePic.url }}" height="200px" width="200px"></td>
+            {% else %}
+                <td><img src="{% static 'img_4.jpg' %}" height="200px" width="200px"></td>
+            {% endif %}
         <td><a href="{% url 'edit' i.id %}">Edit</a>/<a href="{% url 'delete' i.id %}">Delete</a></td>
 
     </tr>
