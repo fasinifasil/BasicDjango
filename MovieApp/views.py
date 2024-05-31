@@ -6,6 +6,11 @@ from MovieApp.models import MovieDb
 
 # Create your views here.
 def ListFunction(request):
+    # alldata = MovieDb.objects.filter(ReleasedYear=2021).filter(Movie_Title='Home')
+    # alldata = MovieDb.objects.order_by('-ReleasedYear')
+    # alldata = MovieDb.objects.filter(cast__actorName='Mohanlal')
+    # alldata = MovieDb.objects.filter(ReleasedYear__gt=2022)
+    # alldata = MovieDb.objects.filter(Movie_Title__startswith='R')
     alldata = MovieDb.objects.all()
 
     movieList = {'key':alldata}
