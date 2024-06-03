@@ -10,9 +10,18 @@ List Page
 
 <h3>All Details</h3>
 <h2>Malayalam Movies</h2>
-<i>Check out the list of all latest Malayalam movies </i>
+<i>Check out the list of all latest Malayalam movies </i><br>
 
+<div class="col-md-3 m-3 bg-dark text-light">
 
+<b>Recent Edited Moviess...</b>
+   {% for i in recent_visited %}
+<li>{{i.Movie_Title}}</li>
+{% endfor %}
+
+</div>
+
+<p>page visited {{visits}}</p>
 <hr>
 <table border="1px" style="padding:40px">
     <tr>
